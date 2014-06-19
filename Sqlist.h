@@ -4,20 +4,19 @@
 #include<malloc.h>
 #define INIT_SIZE 100
 #define INCRE_SIZE 10
-#define ELEMTYPE int
-//typedef int ELEMTYPE;
-enum STATUS{SUCCESS,ERROR};
+#define SQLISTELEMTYPE int
+#include "status.h"
 
 typedef struct
 {
-	ELEMTYPE* base;
+	SQLISTELEMTYPE* base;
 	int length;
 	int size;
 }SqList;
 
 STATUS Init_myList(SqList& myList)
 {
-	myList.base=(ELEMTYPE*)malloc(INIT_SIZE*sizeof(ELEMTYPE));
+	myList.base=(SQLISTELEMTYPE*)malloc(INIT_SIZE*sizeof(SQLISTELEMTYPE));
 	if(!myList.base)
 		return ERROR;
 	myList.length=0;
@@ -25,13 +24,13 @@ STATUS Init_myList(SqList& myList)
 	return SUCCESS;
 }
 
-STATUS InsertElem(SqList& myList,ELEMTYPE myElem,int pos)
+STATUS InsertElem(SqList& myList,SQLISTELEMTYPE myElem,int pos)
 {
 	if(pos<1||pos>myList.length+1)//插入位置错误
 		return ERROR;
 	if(myList.length==myList.size)//存储区已满
 	{
-		ELEMTYPE* newbase=(ELEMTYPE*)realloc(myList.base,(myList.length+100)*sizeof(ELEMTYPE));
+		SQLISTELEMTYPE* newbase=(SQLISTELEMTYPE*)realloc(myList.base,(myList.length+100)*sizeof(SQLISTELEMTYPE));
 		myList.base=newbase;
 		myList.size+=INCRE_SIZE;
 	}
@@ -63,14 +62,14 @@ STATUS DelElem(SqList& mylist,int pos)
 	mylist.length--;
 	return SUCCESS;
 }
-STATUS GetElem(SqList& mylist,int pos,ELEMTYPE& elem)
+STATUS GetElem(SqList& mylist,int pos,SQLISTELEMTYPE& elem)
 {
 	if(pos<1||pos>mylist.length)
 		return ERROR;
 	elem=mylist.base[pos-1];
 	return SUCCESS;
 }
-int LocateElem(SqList& mylist,ELEMTYPE elem)
+int LocateElem(SqList& mylist,SQLISTELEMTYPE elem)
 {
 	int pos=0;
 	while (pos!=mylist.length&&mylist.base[pos++]!=elem);
@@ -81,10 +80,10 @@ int LocateElem(SqList& mylist,ELEMTYPE elem)
 
 STATUS MergeList(SqList a,SqList b,SqList& c)//a,b递增，结果存c
 {
-	ELEMTYPE* pa=a.base;
-	ELEMTYPE* pb=b.base;
-	ELEMTYPE* pa_end=a.base+a.length;
-	ELEMTYPE* pb_end=b.base+b.length;
+	SQLISTELEMTYPE* pa=a.base;
+	SQLISTELEMTYPE* pb=b.base;
+	SQLISTELEMTYPE* pa_end=a.base+a.length;
+	SQLISTELEMTYPE* pb_end=b.base+b.length;
 	if(Init_myList(c)!=SUCCESS)
 		return ERROR;
 	while (pa!=pa_end&&pb!=pb_end)

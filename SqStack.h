@@ -2,32 +2,32 @@
 #define _SQSTACK_H_
 #define INIT_SIZE 100
 #define INCREMENT 10
-#define  ELEMTYPE int
+#define  STACKELEMTYPE void*
 #include <stdio.h>
 #include <malloc.h>
-enum STATUS{SUCCESS,ERROR};
+#include "status.h"
 
 typedef struct
 {
-	ELEMTYPE* base;
-	ELEMTYPE* top;
+	STACKELEMTYPE* base;
+	STACKELEMTYPE* top;
 	int stacksize;
 }SqStack;
 
 STATUS Init_SqStack(SqStack& s)
 {
-	s.base=(ELEMTYPE*)malloc(INIT_SIZE*sizeof(ELEMTYPE));
+	s.base=(STACKELEMTYPE*)malloc(INIT_SIZE*sizeof(STACKELEMTYPE));
 	if(!s.base) return ERROR;
 	s.top=s.base;
 	s.stacksize=INIT_SIZE;
 	return SUCCESS;
 }
 
-STATUS Push(SqStack& s,ELEMTYPE e)
+STATUS Push(SqStack& s,STACKELEMTYPE e)
 {
 	if(s.top-s.base==s.stacksize)//full
 	{
-		s.base=(ELEMTYPE*)realloc(s.base,sizeof(ELEMTYPE)*(s.stacksize+INCREMENT));
+		s.base=(STACKELEMTYPE*)realloc(s.base,sizeof(STACKELEMTYPE)*(s.stacksize+INCREMENT));
 		if(!s.base) return ERROR;
 		s.top=s.base+s.stacksize;
 		s.stacksize+=INCREMENT;
@@ -36,14 +36,14 @@ STATUS Push(SqStack& s,ELEMTYPE e)
 	return SUCCESS;
 }
 
-STATUS Pop(SqStack& s,ELEMTYPE& e)
+STATUS Pop(SqStack& s,STACKELEMTYPE& e)
 {
 	if(s.base==s.top)
 		return ERROR;
 	e=*(--s.top);
 	return SUCCESS;
 }
-STATUS GetTop(SqStack& s,ELEMTYPE& e)
+STATUS GetTop(SqStack& s,STACKELEMTYPE& e)
 {
 	if(s.base==s.top)
 		return ERROR;
@@ -51,5 +51,9 @@ STATUS GetTop(SqStack& s,ELEMTYPE& e)
 	return SUCCESS;
 }
 
+bool StackEmpty(SqStack& s)
+{
+	return s.base==s.top;
+}
 #endif
 

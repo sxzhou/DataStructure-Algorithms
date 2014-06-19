@@ -1,17 +1,17 @@
 #ifndef _LINKLIST_H_
 #define _LINKLIST_H_
-#define ELEMTYPE int
+#define LNKLISTELEMTYPE int
 #include<malloc.h>
 #include <stdio.h>
-enum STATUS{SUCCESS,ERROR};
+#include "status.h"
 
 typedef struct linklistNode
 {
-	ELEMTYPE elem;
+	LNKLISTELEMTYPE elem;
 	struct linklistNode* next;
 }linklistNode,*linklist;
 
-linklist NewLinkListNode(ELEMTYPE myelem)
+linklist NewLinkListNode(LNKLISTELEMTYPE myelem)
 {
 	linklist myLinkList=(linklist)malloc(sizeof(linklistNode));
 	myLinkList->elem=myelem;
@@ -23,7 +23,7 @@ linklist Init_Empty_List()
     linklist mylinklist=NewLinkListNode(0);
 	return mylinklist;
 }
-STATUS InsertElem(linklist& mylinklist,ELEMTYPE myelem,int pos)//包含头结点1<=pos<=length+1
+STATUS InsertElem(linklist& mylinklist,LNKLISTELEMTYPE myelem,int pos)//包含头结点1<=pos<=length+1
 {
 	if(mylinklist==NULL)
 		return ERROR;//uninitialized!
@@ -100,7 +100,7 @@ STATUS MergeLinkList(linklist& La,linklist& Lb,linklist& Lc)//递增
 
 /*静态链表*/
 typedef struct{
-	ELEMTYPE elem;
+	LNKLISTELEMTYPE elem;
 	int cur;
 }component,SlinkList[1000];
 //集合运算
