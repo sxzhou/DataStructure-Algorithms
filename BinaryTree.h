@@ -297,5 +297,5 @@ int GetNodeNumKthLevel(BiTree pRoot, int k)
 	return (GetNodeNumKthLevel(pRoot->lchild, k-1)+GetNodeNumKthLevel(pRoot->rchild, k-1));
 }
 //是否平衡，节点最大距离，前序和中序重建
-http://blog.csdn.net/geekster/article/details/12176299
+//http://blog.csdn.net/geekster/article/details/12176299
 #endif
