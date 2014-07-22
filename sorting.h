@@ -1,15 +1,7 @@
-/*******************************************************************************
-*
-* FileName : sorting.h
-* Comment  : some internal sorting algorithms
-* Version  : 1.0
-* Author   : haibindev.cnblogs.com
-* Date     : 2007-9-27 23:03
-*
-*******************************************************************************/
 
-#ifndef _SORTING_H_INCLUDED
-#define _SORTING_H_INCLUDED
+#ifndef _SORTING_H_
+#define _SORTING_H_
+
 #include <memory>
 #include <random>
 #include <time.h>
